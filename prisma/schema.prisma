@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+// prisma/schema.prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+  // directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  //All notifications this user receives.
+  notifications   Notification[] @relation("UserNotifications")
+  //Notifications this user caused (as the actorId)
+  triggeredNotifs Notification[] @relation("ActorNotifications")
+  //Follows where this user is being followed
+  followers       Follow[]       @relation("UserFollowers")
+  //Follows where this user is following someone else
+  following       Follow[]       @relation("UserFollowing")
+
+  @@map("users")
+}
+
+model Notification {
+  id           String           @id @default(uuid())
+  userId       String // Who receives the notification
+  type         NotificationType
+  title        String
+  message      String
+  resourceType ResourceType?
+  resourceId   String? // Which resource it references
+  actorId      String? // Who triggered it
+  isRead       Boolean          @default(false)
+  createdAt    DateTime         @default(now())
+
+  // Relations
+  user  User  @relation("UserNotifications", fields: [userId], references: [id], onDelete: Cascade)
+  actor User? @relation("ActorNotifications", fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([userId, isRead, createdAt(sort: Desc)])
+  @@index([resourceType, resourceId])
+  @@map("notifications")
+}
+
+model Follow {
+  id          String   @id @default(uuid())
+  followerId  String
+  followingId String
+  createdAt   DateTime @default(now())
+
+  // Relations
+  follower  User @relation("UserFollowers", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation("UserFollowing", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
+  @@map("follows")
+}
+
+enum NotificationType {
+  LIKE
+  COMMENT
+  FOLLOW
+  MENTION
+  SYSTEM
+  FORM_SUBMISSION
+}
+
+enum ResourceType {
+  POST
+  COMMENT
+  USER
+  FORM
+}

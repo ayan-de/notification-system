@@ -1,0 +1,23 @@
+{
+  "src": "This is the source code file.",
+  "src/index.ts": "This is the main file of your project.",
+  ".gitignore": "This file is used to ignore files and folders during git operations.",
+  "tsconfig.json": "This file is used to configure the TypeScript compiler.",
+  "package.json": "This file is used to configure the Node.js project.",
+  "dist": "This folder is used to store compiled JavaScript files.",
+  "nodemon.json": "This file is used to configure the nodemon process.",
+  "prisma/schema.prisma": "TODO: Add description",
+  "src/controllers": "Functions handling requests",
+  "src/routes": "Express routes",
+  "src/validators": "Zod schemas",
+  "src/services": "Business logic",
+  "src/utils": "Helper functions",
+  ".env": "TODO: Add description",
+  "prisma": "TODO: Add description",
+  "node_modules/.prisma": "TODO: Add description",
+  "src/generated": "TODO: Add description",
+  "src/DB": "TODO: Add description",
+  "src/DB/db.cofig.ts": "TODO: Add description",
+  "cheat.txt": "TODO: Add description",
+  ".git": "TODO: Add description"
+}

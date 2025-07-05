@@ -27,5 +27,7 @@
   "src/middleware": "TODO: Add description",
   "src/routes/v1/index.ts": "The router for API v1, which combines all v1 routes.",
   "src/controllers/auth.controller.ts": "The controller that contains the `register,login,getMe` function, which handles the business logic for user registration",
-  "src/middleware/auth.middleware.ts": "TODO: Add description"
+  "src/middleware/auth.middleware.ts": "TODO: Add description",
+  "src/controllers/follow.controller.ts": "TODO: Add description",
+  "src/routes/v1/follow.routes.ts": "TODO: Add description"
 }

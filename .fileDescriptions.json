@@ -1,6 +1,5 @@
 {
   "src": "This is the source code file.",
-  "src/index.ts": "This is the main file of your project.",
   ".gitignore": "This file is used to ignore files and folders during git operations.",
   "tsconfig.json": "This file is used to configure the TypeScript compiler.",
   "package.json": "This file is used to configure the Node.js project.",
@@ -19,5 +18,14 @@
   "src/DB": "TODO: Add description",
   "src/DB/db.cofig.ts": "TODO: Add description",
   "cheat.txt": "TODO: Add description",
-  ".git": "TODO: Add description"
+  ".git": "TODO: Add description",
+  "src/routes/v1": "TODO: Add description",
+  "src/routes/v1/auth.routes.ts": "TODO: Add description",
+  "src/routes/index.ts": "The main router, which directs traffic to different API versions",
+  "src/server.ts": "The entry point of the application, which starts the server",
+  "src/app.ts": "The main application file, which sets up middleware and routes",
+  "src/middleware": "TODO: Add description",
+  "src/routes/v1/index.ts": "The router for API v1, which combines all v1 routes.",
+  "src/controllers/auth.controller.ts": "The controller that contains the `register,login,getMe` function, which handles the business logic for user registration",
+  "src/middleware/auth.middleware.ts": "TODO: Add description"
 }

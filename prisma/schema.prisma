@@ -26,6 +26,8 @@ model User {
   updatedAt DateTime @updatedAt
 
   // Relations
+  posts           Post[]
+  comments        Comment[]
   //All notifications this user receives.
   notifications   Notification[] @relation("UserNotifications")
   //Notifications this user caused (as the actorId)
@@ -36,6 +38,33 @@ model User {
   following       Follow[]       @relation("UserFollowing")
 
   @@map("users")
+}
+
+model Post {
+  id        String   @id @default(uuid())
+  content   String
+  authorId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  author   User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  comments Comment[]
+
+  @@map("posts")
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  authorId  String
+  postId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@map("comments")
 }
 
 model Notification {
@@ -82,6 +111,7 @@ enum NotificationType {
   MENTION
   SYSTEM
   FORM_SUBMISSION
+  POST
 }
 
 enum ResourceType {
